@@ -70,8 +70,8 @@ services:
       - django
       - geoserver
     ports:
-      - "80:80"
-      - "443:443"
+      - "8081:80"
+      - "4433:443"
     volumes:
       - nginx-confd:/etc/nginx
       - nginx-certificates:/geonode-certificates
