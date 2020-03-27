@@ -2,8 +2,6 @@ version: '2.2'
 services:
 
   db:
-    ports:
-      - "5432:5432"
     image: geonode/postgis:11
     restart: unless-stopped
     container_name: db4${COMPOSE_PROJECT_NAME}
@@ -19,7 +17,7 @@ services:
       - .env
 
   geoserver:
-    image: geonode/geoserver:2.15.2
+    image: geonode/geoserver:2.16.2
     build: ./docker/geoserver/
     restart: unless-stopped
     container_name: geoserver4${COMPOSE_PROJECT_NAME}
@@ -90,7 +88,7 @@ services:
       - .env
 
   data-dir-conf:
-    image: geonode/geoserver_data:2.15.2
+    image: geonode/geoserver_data:2.16.2
     restart: on-failure
     container_name: gsconf4${COMPOSE_PROJECT_NAME}
     labels:

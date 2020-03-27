@@ -21,7 +21,12 @@
 # Django settings for the GeoNode project.
 import ast
 import os
-from urlparse import urlparse, urlunparse
+try:
+    from urllib.parse import urlparse, urlunparse
+    from urllib.request import urlopen, Request
+except ImportError:
+    from urllib2 import urlopen, Request
+    from urlparse import urlparse, urlunparse
 # Load more settings from a file called local_settings.py if it exists
 try:
     from adbpo_geonode.local_settings import *
@@ -71,7 +76,6 @@ loaders = TEMPLATES[0]['OPTIONS'].get('loaders') or ['django.template.loaders.fi
 # loaders.insert(0, 'apptemplates.Loader')
 TEMPLATES[0]['OPTIONS']['loaders'] = loaders
 TEMPLATES[0].pop('APP_DIRS', None)
-
 
 UPLOADER = {
     'BACKEND': os.getenv('DEFAULT_BACKEND_UPLOADER', 'geonode.rest'),

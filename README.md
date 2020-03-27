@@ -25,7 +25,7 @@ Available at
 
 ## Create a custom project
 
-**NOTE**: *You can call your geonode project whatever you like following the naming conventions for python packages (generally lower case with underscores (``_``). In the examples below, replace ``my_geonode`` with whatever you would like to name your project.*
+**NOTE**: *You can call your geonode project whatever you like following the naming conventions for python packages (generally lower case with underscores (``_``). In the examples below, replace ``adbpo_geonode`` with whatever you would like to name your project.*
 
 ### Using a Python virtual environment
 
@@ -39,12 +39,13 @@ To setup your project using a local python virtual environment, follow these ins
 
     ```bash
     git clone https://github.com/GeoNode/geonode-project.git -b <your_branch>
-    mkvirtualenv my_geonode
-    pip install Django==1.11.25
+    source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+    mkvirtualenv --python=/usr/bin/python3 adbpo_geonode
+    pip install Django==2.2.9
 
-    django-admin startproject --template=./geonode-project -e py,sh,md,rst,json,yml,ini,env,sample -n monitoring-cron -n Dockerfile my_geonode
+    django-admin startproject --template=./geonode-project -e py,sh,md,rst,json,yml,ini,env,sample -n monitoring-cron -n Dockerfile adbpo_geonode
 
-    cd my_geonode
+    cd adbpo_geonode
     ```
 
 2. Setup the Python Dependencies
@@ -61,19 +62,19 @@ To setup your project using a local python virtual environment, follow these ins
     pip install pygdal=="`gdal-config --version`.*"
 
     # Using the Default Settings
-    DJANGO_SETTINGS_MODULE=my_geonode.settings paver reset
-    DJANGO_SETTINGS_MODULE=my_geonode.settings paver setup
-    DJANGO_SETTINGS_MODULE=my_geonode.settings paver sync
-    DJANGO_SETTINGS_MODULE=my_geonode.settings paver start
+    DJANGO_SETTINGS_MODULE=adbpo_geonode.settings paver reset
+    DJANGO_SETTINGS_MODULE=adbpo_geonode.settings paver setup
+    DJANGO_SETTINGS_MODULE=adbpo_geonode.settings paver sync
+    DJANGO_SETTINGS_MODULE=adbpo_geonode.settings paver start
 
     # Using the Custom Local Settings
     # - Remember that `.settings` includes `.local_settings`
-    cp my_geonode/local_settings.py.sample my_geonode/local_settings.py
+    cp adbpo_geonode/local_settings.py.sample adbpo_geonode/local_settings.py
 
-    DJANGO_SETTINGS_MODULE=my_geonode.local_settings paver reset
-    DJANGO_SETTINGS_MODULE=my_geonode.local_settings paver setup
-    DJANGO_SETTINGS_MODULE=my_geonode.local_settings paver sync
-    DJANGO_SETTINGS_MODULE=my_geonode.local_settings paver start
+    DJANGO_SETTINGS_MODULE=adbpo_geonode.local_settings paver reset
+    DJANGO_SETTINGS_MODULE=adbpo_geonode.local_settings paver setup
+    DJANGO_SETTINGS_MODULE=adbpo_geonode.local_settings paver sync
+    DJANGO_SETTINGS_MODULE=adbpo_geonode.local_settings paver start
     ```
 
 3. Access GeoNode from browser
@@ -92,12 +93,13 @@ You need Docker 1.12 or higher, get the latest stable official release for your 
 
     ```bash
     git clone https://github.com/GeoNode/geonode-project.git -b <your_branch>
-    mkvirtualenv my_geonode
-    pip install Django==1.11.25
+    source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
+    mkvirtualenv --python=/usr/bin/python3 adbpo_geonode
+    pip install Django==2.2.9
 
-    django-admin startproject --template=./geonode-project -e py,sh,md,rst,json,yml,ini,env,sample -n monitoring-cron -n Dockerfile my_geonode
+    django-admin startproject --template=./geonode-project -e py,sh,md,rst,json,yml,ini,env,sample -n monitoring-cron -n Dockerfile adbpo_geonode
 
-    cd my_geonode
+    cd adbpo_geonode
     ```
 
 2. Run `docker-compose` to start it up (get a cup of coffee or tea while you wait)
@@ -177,7 +179,7 @@ Step 3. Set up a free account on github or bitbucket and make a copy of the repo
 You may want to configure your requirements.txt, if you are using additional or custom versions of python packages. For example
 
 ```python
-Django==1.11.25
+Django==2.2.9
 git+git://github.com/<your organization>/geonode.git@<your branch>
 ```
 
