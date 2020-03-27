@@ -71,3 +71,34 @@ loaders = TEMPLATES[0]['OPTIONS'].get('loaders') or ['django.template.loaders.fi
 # loaders.insert(0, 'apptemplates.Loader')
 TEMPLATES[0]['OPTIONS']['loaders'] = loaders
 TEMPLATES[0].pop('APP_DIRS', None)
+
+
+UPLOADER = {
+    'BACKEND': os.getenv('DEFAULT_BACKEND_UPLOADER', 'geonode.rest'),
+    'OPTIONS': {
+        'TIME_ENABLED': ast.literal_eval(os.getenv('TIME_ENABLED', 'False')),
+        'MOSAIC_ENABLED': ast.literal_eval(os.getenv('MOSAIC_ENABLED', 'False')),
+    },
+    'SUPPORTED_CRS': [
+        'EPSG:4326',
+        'EPSG:3785',
+        'EPSG:3857',
+        'EPSG:32647',
+        'EPSG:32736',
+        'EPSG:23032',
+        'EPSG:3035'
+    ],
+    'SUPPORTED_EXT': [
+        '.shp',
+        '.csv',
+        '.kml',
+        '.kmz',
+        '.json',
+        '.geojson',
+        '.tif',
+        '.tiff',
+        '.geotiff',
+        '.gml',
+        '.xml'
+    ]
+}
