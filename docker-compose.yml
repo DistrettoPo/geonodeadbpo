@@ -31,7 +31,7 @@ services:
       - data-dir-conf
     volumes:
       - geoserver-data-dir:/geoserver_data/data
-      - backup-restore:/backup-restore
+      - backup-restore:/backup_restore
     env_file:
       - .env
 
@@ -52,7 +52,7 @@ services:
     volumes:
       - statics:/mnt/volumes/statics
       - geoserver-data-dir:/geoserver_data/data
-      - backup-restore:/backup-restore
+      - backup-restore:/backup_restore
     env_file:
       - .env
 
@@ -77,7 +77,7 @@ services:
       - nginx-certificates:/geonode-certificates
       - statics:/mnt/volumes/statics
     env_file:
-      - .env
+      - .envFE
 
   # Gets and installs letsencrypt certificates
   letsencrypt:
