@@ -77,7 +77,7 @@ services:
       - nginx-certificates:/geonode-certificates
       - statics:/mnt/volumes/statics
     env_file:
-      - .envFE
+      - .env
 
   # Gets and installs letsencrypt certificates
   letsencrypt:
