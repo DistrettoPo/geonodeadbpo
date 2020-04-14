@@ -78,7 +78,7 @@ TEMPLATES[0]['OPTIONS']['loaders'] = loaders
 TEMPLATES[0].pop('APP_DIRS', None)
 
 UPLOADER = {
-    'BACKEND': os.getenv('DEFAULT_BACKEND_UPLOADER', 'geonode.rest'),
+    'BACKEND': os.getenv('DEFAULT_BACKEND_UPLOADER', 'geonode.importer'),
     'OPTIONS': {
         'TIME_ENABLED': ast.literal_eval(os.getenv('TIME_ENABLED', 'False')),
         'MOSAIC_ENABLED': ast.literal_eval(os.getenv('MOSAIC_ENABLED', 'False')),
