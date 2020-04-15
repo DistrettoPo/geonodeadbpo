@@ -31,7 +31,8 @@ cd /usr/src/adbpo_geonode/
 
 if md5sum -c /$BKP_FOLDER_NAME/$BKP_FILE_NAME.md5; then
     # The MD5 sum matched
-    ./manage.sh restore -c adbpo_geonode/br/settings_docker.ini -f --backup-file /$BKP_FOLDER_NAME/$BKP_FILE_LATEST
+    sed -i 's/ .*//' /$BKP_FOLDER_NAME/$BKP_FILE_NAME.md5
+    ./manage.sh restore -c adbpo_geonode/br/settings_docker.ini -f --backup-file /$BKP_FOLDER_NAME/$BKP_FILE_NAME.zip
     ./manage.sh migrate_baseurl -f --source-address=$SOURCE_URL --target-address=$TARGET_URL
     ./manage.sh set_all_layers_metadata -d
     ./manage.sh sync_geonode_layers --updatepermissions
