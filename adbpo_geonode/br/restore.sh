@@ -73,5 +73,6 @@ else
 fi
 
 echo "-----------------------------------------------------"
+echo " - Original Backup of $TARGET_URL --> /$BKP_FOLDER_NAME/$NEW_UUID/"
 echo "FINISHED ADBPO RESTORE $(date)"
 echo "-----------------------------------------------------"
