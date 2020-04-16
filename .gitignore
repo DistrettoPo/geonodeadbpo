@@ -61,6 +61,10 @@ development.db
 development.db-journal
 local_settings.py
 
-.idea/
+# Docker
+docker-compose.override.yml
+.env
 
+#IDEs
+.idea/
 /.vscode/settings.json
