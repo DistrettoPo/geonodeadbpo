@@ -44,6 +44,7 @@ BKP_FILE_NAME=$(echo $BKP_FILE_LATEST | tail -n 1 | grep -oP -m 1 "\/$BKP_FOLDER
 if md5sum -c /$BKP_FOLDER_NAME/$NEW_UUID/$BKP_FILE_NAME.md5; then
 
     echo "-----------------------------------------------------"
+    echo " - Original Backup of $TARGET_URL --> /$BKP_FOLDER_NAME/$NEW_UUID/"
     echo " 3. RESTORE FROM $SOURCE_URL"
     echo "-----------------------------------------------------"
 
@@ -59,6 +60,7 @@ if md5sum -c /$BKP_FOLDER_NAME/$NEW_UUID/$BKP_FILE_NAME.md5; then
     else
         # The MD5 sum didn't match
         echo "-----------------------------------------------------"
+        echo " - Original Backup of $TARGET_URL --> /$BKP_FOLDER_NAME/$NEW_UUID/"
         echo "ERROR: The MD5 sum didn't match"
         echo "-----------------------------------------------------"
         exit 1
@@ -66,6 +68,7 @@ if md5sum -c /$BKP_FOLDER_NAME/$NEW_UUID/$BKP_FILE_NAME.md5; then
 else
     # The MD5 sum didn't match
     echo "-----------------------------------------------------"
+    echo " - Original Backup of $TARGET_URL --> /$BKP_FOLDER_NAME/$NEW_UUID/"
     echo "ERROR: Could not save $TARGET_URL"
     echo "-----------------------------------------------------"
     exit 1
