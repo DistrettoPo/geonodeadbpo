@@ -106,3 +106,14 @@ UPLOADER = {
         '.xml'
     ]
 }
+
+EPSG_CODE_MATCHES = {
+    'EPSG:4326': '(4326) WGS 84',
+    'EPSG:900913': '(900913) Google Maps Global Mercator',
+    'EPSG:3857': '(3857) WGS 84 / Pseudo-Mercator',
+    'EPSG:3785': '(3785 DEPRECATED) Popular Visualisation CRS / Mercator',
+    'EPSG:32647': '(32647) WGS 84 / UTM zone 47N',
+    'EPSG:32736': '(32736) WGS 84 / UTM zone 36S',
+    'EPSG:23032': '(23032) ED50 / UTM zone 32N',
+    'EPSG:3035': '(3035) ETRS89 / ETRS-LAEA'
+}
