@@ -48,7 +48,7 @@ if md5sum -c /$BKP_FOLDER_NAME/$NEW_UUID/$BKP_FILE_NAME.md5; then
     echo " 3. RESTORE FROM $SOURCE_URL"
     echo "-----------------------------------------------------"
 
-    RECOVERY_FILE_NAME = $BKP_FILE_NAME
+    RECOVERY_FILE_NAME=$BKP_FILE_NAME
     BKP_FILE_LATEST=$(find /$BKP_FOLDER_NAME/*.zip -type f -exec stat -c '%Y %n' {} \; | sort -nr | awk 'NR==1,NR==1 {print $2}')
     BKP_FILE_NAME=$(echo $BKP_FILE_LATEST | tail -n 1 | grep -oP -m 1 "\/$BKP_FOLDER_NAME\/\K.*" | sed 's|.zip||')
 
