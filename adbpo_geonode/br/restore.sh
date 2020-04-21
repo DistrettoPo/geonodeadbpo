@@ -48,12 +48,13 @@ if md5sum -c /$BKP_FOLDER_NAME/$NEW_UUID/$BKP_FILE_NAME.md5; then
     echo " 3. RESTORE FROM $SOURCE_URL"
     echo "-----------------------------------------------------"
 
+    RECOVERY_FILE_NAME = $BKP_FILE_NAME
     BKP_FILE_LATEST=$(find /$BKP_FOLDER_NAME/*.zip -type f -exec stat -c '%Y %n' {} \; | sort -nr | awk 'NR==1,NR==1 {print $2}')
     BKP_FILE_NAME=$(echo $BKP_FILE_LATEST | tail -n 1 | grep -oP -m 1 "\/$BKP_FOLDER_NAME\/\K.*" | sed 's|.zip||')
 
     if md5sum -c /$BKP_FOLDER_NAME/$BKP_FILE_NAME.md5; then
         # The MD5 sum matched
-        ./manage.sh restore -c adbpo_geonode/br/settings_docker.ini -l -n -f --backup-file /$BKP_FOLDER_NAME/$BKP_FILE_NAME.zip
+        ./manage.sh restore -c adbpo_geonode/br/settings_docker.ini -l -n -f --backup-file /$BKP_FOLDER_NAME/$BKP_FILE_NAME.zip --recovery-file /$BKP_FOLDER_NAME/$NEW_UUID/$RECOVERY_FILE_NAME.zip
         ./manage.sh migrate_baseurl -f --source-address=$SOURCE_URL --target-address=$TARGET_URL
         ./manage.sh set_all_layers_metadata -d -i
         ./manage.sh sync_geonode_layers --updatepermissions -i
