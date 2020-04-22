@@ -117,3 +117,50 @@ EPSG_CODE_MATCHES = {
     'EPSG:23032': '(23032) ED50 / UTM zone 32N',
     'EPSG:3035': '(3035) ETRS89 / ETRS-LAEA'
 }
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d '
+                      '%(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(message)s',
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler',
+        }
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"], "level": "ERROR", },
+        "geonode": {
+            "handlers": ["console"], "level": "INFO", },
+        "geonode.qgis_server": {
+            "handlers": ["console"], "level": "ERROR", },
+        "geoserver-restconfig.catalog": {
+            "handlers": ["console"], "level": "ERROR", },
+        "owslib": {
+            "handlers": ["console"], "level": "ERROR", },
+        "pycsw": {
+            "handlers": ["console"], "level": "INFO", },
+        "celery": {
+            'handlers': ["console"], 'level': 'ERROR', },
+    }
+}
