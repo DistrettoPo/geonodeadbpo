@@ -164,3 +164,6 @@ LOGGING = {
             'handlers': ["console"], 'level': 'ERROR', },
     }
 }
+
+DISPLAY_RATINGS = False
+DISPLAY_COMMENTS = False
