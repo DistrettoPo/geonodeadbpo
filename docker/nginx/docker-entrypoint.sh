@@ -32,9 +32,17 @@ else
         ln -sf "/geonode-certificates/autoissued" /certificate_symlink
 fi
 
+echo "Sanity checks on http/s ports configuration"
+if [ -z "${HTTP_PORT}" ]; then
+        HTTP_PORT=80
+fi
+if [ -z "${HTTPS_PORT}" ]; then
+        HTTPS_PORT=443
+fi
+
 echo "Replacing environement variables"
-envsubst '\$HTTP_HOST \$HTTPS_HOST \$RESOLVER' < /etc/nginx/nginx.conf.envsubst > /etc/nginx/nginx.conf
-envsubst '\$HTTP_HOST \$HTTPS_HOST \$RESOLVER' < /etc/nginx/nginx.https.available.conf.envsubst > /etc/nginx/nginx.https.available.conf
+envsubst '\$HTTP_PORT \$HTTPS_PORT \$HTTP_HOST \$HTTPS_HOST \$RESOLVER' < /etc/nginx/nginx.conf.envsubst > /etc/nginx/nginx.conf
+envsubst '\$HTTP_PORT \$HTTPS_PORT \$HTTP_HOST \$HTTPS_HOST \$RESOLVER' < /etc/nginx/nginx.https.available.conf.envsubst > /etc/nginx/nginx.https.available.conf
 
 echo "Enabling or not https configuration"
 if [ -z "${HTTPS_HOST}" ]; then 
