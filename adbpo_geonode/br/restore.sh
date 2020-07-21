@@ -1,4 +1,21 @@
 #!/bin/sh
+# ##########################################################
+# Run a restore
+#  SOURCE_URL=$SOURCE_URL TARGET_URL=$TARGET_URL ./{{project_name}}/br/restore.sh $BKP_FOLDER_NAME
+#   - BKP_FOLDER_NAME:
+#     Default value = backup_restore
+#     Shared Backup Folder name.
+#     The scripts assume it is located on "root" e.g.: /$BKP_FOLDER_NAME/
+#
+#   - SOURCE_URL:
+#     Source Server URL, the one generating the "backup" file.
+#
+#   - TARGET_URL:
+#     Target Server URL, the one which must be synched.
+#
+# e.g.:
+#  docker exec -it django4{{project_name}} sh -c 'SOURCE_URL=$SOURCE_URL TARGET_URL=$TARGET_URL ./{{project_name}}/br/restore.sh $BKP_FOLDER_NAME'
+# ##########################################################
 
 # Exit script in case of error
 set -e

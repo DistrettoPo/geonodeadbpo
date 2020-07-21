@@ -10,10 +10,9 @@ GeoNode template project. Generates a django project with GeoNode support.
 -  [Run the instance in development mode](#run-the-instance-in-development-mode)
 -  [Run the instance on a public site](#run-the-instance-on-a-public-site)
 -  [Stop the Docker Images](#stop-the-docker-images)
+-  [Backup and Restore from Docker Images](#backup-and-restore-the-docker-images)
 -  [Recommended: Track your changes](#recommended-track-your-changes)
 -  [Hints: Configuring `requirements.txt`](#hints-configuring-requirementstxt)
--  [Hints: Using Ansible](#hints-using-ansible)
--  [Configuration](#configuration)
 
 ## Developer Workshop
 
@@ -41,7 +40,7 @@ To setup your project using a local python virtual environment, follow these ins
     git clone https://github.com/GeoNode/geonode-project.git -b <your_branch>
     source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
     mkvirtualenv --python=/usr/bin/python3 adbpo_geonode
-    pip install Django==2.2.9
+    pip install Django==2.2.12
 
     django-admin startproject --template=./geonode-project -e py,sh,md,rst,json,yml,ini,env,sample -n monitoring-cron -n Dockerfile adbpo_geonode
 
@@ -61,20 +60,16 @@ To setup your project using a local python virtual environment, follow these ins
     # Install GDAL Utilities for Python
     pip install pygdal=="`gdal-config --version`.*"
 
+    # Dev scripts
+    mv .override_dev_env.sample .override_dev_env
+    mv manage_dev.sh.sample manage_dev.sh
+    mv paver_dev.sh.sample paver_dev.sh
+
     # Using the Default Settings
-    DJANGO_SETTINGS_MODULE=adbpo_geonode.settings paver reset
-    DJANGO_SETTINGS_MODULE=adbpo_geonode.settings paver setup
-    DJANGO_SETTINGS_MODULE=adbpo_geonode.settings paver sync
-    DJANGO_SETTINGS_MODULE=adbpo_geonode.settings paver start
-
-    # Using the Custom Local Settings
-    # - Remember that `.settings` includes `.local_settings`
-    cp adbpo_geonode/local_settings.py.sample adbpo_geonode/local_settings.py
-
-    DJANGO_SETTINGS_MODULE=adbpo_geonode.local_settings paver reset
-    DJANGO_SETTINGS_MODULE=adbpo_geonode.local_settings paver setup
-    DJANGO_SETTINGS_MODULE=adbpo_geonode.local_settings paver sync
-    DJANGO_SETTINGS_MODULE=adbpo_geonode.local_settings paver start
+    ./paver_dev.sh reset
+    ./paver_dev.sh setup
+    ./paver_dev.sh sync
+    ./paver_dev.sh start
     ```
 
 3. Access GeoNode from browser
@@ -95,7 +90,7 @@ You need Docker 1.12 or higher, get the latest stable official release for your 
     git clone https://github.com/GeoNode/geonode-project.git -b <your_branch>
     source /usr/share/virtualenvwrapper/virtualenvwrapper.sh
     mkvirtualenv --python=/usr/bin/python3 adbpo_geonode
-    pip install Django==2.2.9
+    pip install Django==2.2.12
 
     django-admin startproject --template=./geonode-project -e py,sh,md,rst,json,yml,ini,env,sample -n monitoring-cron -n Dockerfile adbpo_geonode
 
@@ -160,6 +155,54 @@ docker-compose stop
 docker system prune -a
 ```
 
+## Backup and Restore from Docker Images
+
+### Run a Backup
+
+```bash
+SOURCE_URL=$SOURCE_URL TARGET_URL=$TARGET_URL ./{{project_name}}/br/backup.sh $BKP_FOLDER_NAME
+```
+
+- BKP_FOLDER_NAME:
+  Default value = backup_restore
+  Shared Backup Folder name.
+  The scripts assume it is located on "root" e.g.: /$BKP_FOLDER_NAME/
+
+- SOURCE_URL:
+  Source Server URL, the one generating the "backup" file.
+
+- TARGET_URL:
+  Target Server URL, the one which must be synched.
+
+e.g.:
+
+```bash
+docker exec -it django4{{project_name}} sh -c 'SOURCE_URL=$SOURCE_URL TARGET_URL=$TARGET_URL ./{{project_name}}/br/backup.sh $BKP_FOLDER_NAME'
+```
+
+### Run a Restore
+
+```bash
+SOURCE_URL=$SOURCE_URL TARGET_URL=$TARGET_URL ./{{project_name}}/br/restore.sh $BKP_FOLDER_NAME
+```
+
+- BKP_FOLDER_NAME:
+  Default value = backup_restore
+  Shared Backup Folder name.
+  The scripts assume it is located on "root" e.g.: /$BKP_FOLDER_NAME/
+
+- SOURCE_URL:
+  Source Server URL, the one generating the "backup" file.
+
+- TARGET_URL:
+  Target Server URL, the one which must be synched.
+
+e.g.:
+
+```bash
+docker exec -it django4{{project_name}} sh -c 'SOURCE_URL=$SOURCE_URL TARGET_URL=$TARGET_URL ./{{project_name}}/br/restore.sh $BKP_FOLDER_NAME'
+```
+
 ## Recommended: Track your changes
 
 Step 1. Install Git (for Linux, Mac or Windows).
@@ -179,55 +222,6 @@ Step 3. Set up a free account on github or bitbucket and make a copy of the repo
 You may want to configure your requirements.txt, if you are using additional or custom versions of python packages. For example
 
 ```python
-Django==2.2.9
+Django==2.2.12
 git+git://github.com/<your organization>/geonode.git@<your branch>
 ```
-
-## Hints: Using Ansible
-
-You will need to use Ansible Role in order to run the playbook.
-
-In order to install and setup Ansible, run the following commands
-
-```bash
-sudo apt-get install software-properties-common
-sudo apt-add-repository ppa:ansible/ansible
-sudo apt-get update
-sudo apt-get install ansible
-```
-
-A sample Ansible Role can be found at https://github.com/GeoNode/ansible-geonode
-
-To install the default one, run
-
-```bash
-sudo ansible-galaxy install GeoNode.geonode
-```
-
-you will find the Ansible files into the ``~/.ansible/roles`` folder. Those must be updated in order to match the GeoNode and GeoServer versions you will need to install.
-
-To run the Ansible playbook use something like this
-
-```bash
-ANSIBLE_ROLES_PATH=~.ansible/roles ansible-playbook -e "gs_root_password=<new gs root password>" -e "gs_admin_password=<new gs admin password>" -e "dj_superuser_password=<new django admin password>" -i inventory --limit all playbook.yml
-```
-
-## Configuration
-
-**NOTE**: *For `GeoNode` settings, make use of the `ENVIRONMENT` variables whenever is possible. Avoid overwriting them yourself, you might me missing some additional logic done on `geonode.settings`*
-
-Since this application uses geonode, base source of settings is ``geonode.settings`` module. It provides defaults for many items, which are used by geonode. This application has own settings module, ``adbpo_geonode.settings``, which includes ``geonode.settings``. It customizes few elements:
- * static/media files locations - they will be collected and stored along with this application files by default. This is useful during development.
- * Adds ``adbpo_geonode`` to installed applications, updates templates, staticfiles dirs, sets urlconf to ``adbpo_geonode.urls``.
-
-Whether you deploy development or production environment, you should create additional settings file. Convention is to make ``adbpo_geonode.local_settings`` module. It is recommended to use ``adbpo_geonode/local_settings.py``.. That file contains small subset of settings for edition. It should:
- * not be versioned along with application (because changes you make for your private deployment may become public),
- * have customized at least ``DATABASES``, ``SECRET_KEY`` and ``SITEURL``.
-
-You can add more settings there, note however, some settings (notably ``DEBUG_STATIC``, ``EMAIL_ENABLE``, ``*_ROOT``, and few others) can be used by other settings, or as condition values, which change other settings. For example, ``EMAIL_ENABLE`` defined in ``geonode.settings`` enables whole email handling block, so if you disable it in your ``local_settings``, derived settings will be preserved. You should carefully check if additional settings you change don't trigger other settings.
-
-To illustrate whole concept of chained settings:
-
-|GeoNode configuration|   |(optionally) Your deployment(s)   |   |Your application default configuration|
-|---|---|---|---|---|
-|`geonode.settings`|included by ->|`adbpo_geonode.local_settings`|included by ->|`adbpo_geonode.settings`|
