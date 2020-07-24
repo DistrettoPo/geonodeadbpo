@@ -61,11 +61,11 @@ if PROJECT_NAME not in INSTALLED_APPS:
 INSTALLED_APPS += ('markdownify', 'adbpo_geonode.themes',)
 
 MARKDOWNIFY_STRIP = False
-MARKDOWNIFY_WHITELIST_TAGS = {
- 'a', 'p', 
- 'h1', 'h2', 'h3','h4', 'h5', 'h6', 'h7',
- 'ul', 'li', 'span', 'blockquote', 'strong', 'code'
+markdown_white_listed_tags = {
+    'a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'h7', 'ul', 'li', 'span', 'blockquote', 'strong', 'code'
 }
+MARKDOWNIFY_WHITELIST_TAGS = os.getenv('MARKDOWNIFY_WHITELIST_TAGS', markdown_white_listed_tags)
+
 
 # Location of url mappings
 ROOT_URLCONF = os.getenv('ROOT_URLCONF', '{}.urls'.format(PROJECT_NAME))
