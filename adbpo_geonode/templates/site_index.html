@@ -75,32 +75,29 @@ meet your own needs.
 </div>
 {% endif %}
 {% endblock hero %}
-
 {%block bigsearch%}
 <div>
-    <div class="menu-container">
-        {% for menu, menu_items in adbpo_menus.items %}
-        {% if menu_items|length > 0 %}
-        <div class="adbpo-menu">
-            <div class="container">
-                <h3>{{ menu.title }}</h3>
-                <div class="row adbpo-home-facets">
-                    {% for menu_item in menu_items %}
-                    <div class="col-md-3">
-                        <a href="{{ menu_item.url }}"
-                            target="{% if menu_item.blank_target %}_blank{% else %}_self{% endif %}">
-                            <img src="{{ menu_item.icon_thumbnail.url }}" alt="">
-                            <div class="caption">
-                                <h5>{{ menu_item.title }}</h5>
-                            </div>
-                        </a>
-                    </div>
-                    {% endfor %}
-                </div>
-            </div>
-        </div>
-        {% endif %}
-        {% endfor %}
-    </div>
-</div>
+  <div class="menu-container">
+      {% for menu, menu_items in adbpo_menus.items %}
+      {% if menu_items|length > 0 %}
+      <div class="adbpo-menu">
+          <div class="container">
+              <h3>{{ menu.title }}</h3>
+              <div class="row adbpo-home-facets">
+                  {% for menu_item in menu_items %}
+                  <div class="col-md-3">
+                      <a href="{{ menu_item.url }}" target="{% if menu_item.blank_target %}_blank{% else %}_self{% endif %}">
+                          <img src="{{ menu_item.icon_thumbnail.url }}" alt="">
+                          <div class="caption">
+                              <h5>{{ menu_item.title }}</h5>
+                          </div>
+                      </a>
+                  </div>
+                  {% endfor %}
+              </div>
+          </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+  </div>
 {% endblock bigsearch%}
