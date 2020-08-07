@@ -76,6 +76,7 @@ loaders = TEMPLATES[0]['OPTIONS'].get('loaders') or ['django.template.loaders.fi
 # loaders.insert(0, 'apptemplates.Loader')
 TEMPLATES[0]['OPTIONS']['loaders'] = loaders
 TEMPLATES[0].pop('APP_DIRS', None)
+TEMPLATES[0]['OPTIONS']['context_processors'].append('adbpo_geonode.client.context_processors.menus')
 
 UPLOADER = {
     'BACKEND': os.getenv('DEFAULT_BACKEND_UPLOADER', 'geonode.importer'),
@@ -179,6 +180,8 @@ if CENTRALIZED_DASHBOARD_ENABLED and USER_ANALYTICS_ENABLED and 'geonode_logstas
 LDAP_ENABLED = ast.literal_eval(os.getenv('LDAP_ENABLED', 'False'))
 if LDAP_ENABLED and 'geonode_ldap' not in INSTALLED_APPS:
     INSTALLED_APPS += ('geonode_ldap',)
+
+INSTALLED_APPS += ('adbpo_geonode.client',)
 
 # Add your specific LDAP configuration after this comment:
 # https://docs.geonode.org/en/master/advanced/contrib/#configuration

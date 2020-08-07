@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 {% block extra_head %}
-      <link href="{{ STATIC_URL }}css/site_base.css" rel="stylesheet"/>
+<link href="{{ STATIC_URL }}css/site_base.css" rel="stylesheet"/>
 {% endblock %}
+
+{% block my_extra_right_tab %}
+{% include "base/menu.html" with menus=adbpo_menus %}
+{% endblock my_extra_right_tab %}
+
 {% block extra_tab %}
 {% comment %}
 Add Tab for Third Party Apps
 <li>
- <a href="{{ PROJECT_ROOT }}app">App</a>
+      <a href="{{ PROJECT_ROOT }}app">App</a>
 </li>
 {% endcomment %}
 {% endblock %}
