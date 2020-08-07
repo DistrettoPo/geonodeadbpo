@@ -25,7 +25,7 @@ from geonode.urls import urlpatterns
 
 urlpatterns += [
 ## include your urls here
-
+  url(r'^i18n/', include('django.conf.urls.i18n')),
 ]
 
 urlpatterns = [
