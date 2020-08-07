@@ -1,0 +1,53 @@
+.row .col-xs-10 h4 {
+	font-weight: 400;
+	display: block;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 18px;
+	white-space: nowrap;
+}
+
+.row .col-xs-10 h4 a {
+	color: #333;
+}
+
+.row .col-xs-10 h4 a:hover {
+	color: #f05a24;
+	text-decoration: none;
+}
+
+.row .abstract {
+	font-weight: 300;
+	color: #999;
+}
+
+.row .item-details .item-items .list-inline li a {
+	font-weight: 300;
+	color: #999;
+}
+
+.row .item-details .item-items .list-inline li a:hover {
+	color: #555;
+}
+
+.row .item-details .item-items {
+	border: none;
+}
+
+.item-container .profile-avatar {
+	border: none;
+}
+
+.item-container .item-thumb {
+	border: 1px solid #ccc;
+	width: 28%;
+}
+
+.item-container .item-details {
+	border-top: 1px solid #ccc;
+}
+
+.item-container .col-lg-8 {
+	width: 70%;
+	margin-left: 2%;
+}
