@@ -51,6 +51,7 @@
 	width: 70%;
 	margin-left: 2%;
 }
+
 .adbpo-menu:nth-child(even) {
 	background: #dfebf7;
 }
@@ -74,4 +75,20 @@
 .adbpo-home-facets h5 {
 	font-size: 0.875em;
 	font-weight: 700;
+}
+
+#showcase {
+	padding: 0px !important;
+}
+
+#showcase .row .text-center .home-facets {
+	padding: 0;
+}
+
+#showcase .row .text-center .home-facets .col-md-3 h2 {
+	font-size: 1.5em;
+}
+
+#showcase .row .text-center .home-facets .col-md-3 .fa {
+	font-size: 2.5em;
 }
