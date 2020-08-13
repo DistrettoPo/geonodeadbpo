@@ -45,6 +45,13 @@ if not SITEURL.endswith('/'):
 
 SITENAME = os.getenv("SITENAME", 'adbpo_geonode')
 
+# Login and logout urls override
+LOGIN_URL = os.getenv('LOGIN_URL', '{}account/login/'.format(SITEURL))
+LOGOUT_URL = os.getenv('LOGOUT_URL', '{}account/logout/'.format(SITEURL))
+
+ACCOUNT_LOGIN_REDIRECT_URL = os.getenv('LOGIN_REDIRECT_URL', SITEURL)
+ACCOUNT_LOGOUT_REDIRECT_URL = os.getenv('LOGOUT_REDIRECT_URL', SITEURL)
+
 # Defines the directory that contains the settings file as the LOCAL_ROOT
 # It is used for relative settings elsewhere.
 LOCAL_ROOT = os.path.abspath(os.path.dirname(__file__))
