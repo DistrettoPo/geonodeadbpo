@@ -63,7 +63,7 @@
     img {
         width: 3.75em;
     }
-    h5 {
+    .caption h5 {
         font-size: 0.875em;
         font-weight: 700;
     }
@@ -79,6 +79,21 @@
             .fa {
                 font-size: 2.5em;
             }
+        }
+    }
+}
+@media only screen and (max-width: 991px) {
+    .adbpo-home-facets {
+        display: flex;
+        flex-wrap: wrap;
+        .col-md-3 {
+            flex: 1 0 50%;
+            overflow: hidden;   
+        }
+        .caption h5 {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
     }
 }
