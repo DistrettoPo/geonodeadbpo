@@ -72,7 +72,7 @@
 	width: 3.75em;
 }
 
-.adbpo-home-facets h5 {
+.adbpo-home-facets .caption h5 {
 	font-size: 0.875em;
 	font-weight: 700;
 }
@@ -91,4 +91,22 @@
 
 #showcase .row .text-center .home-facets .col-md-3 .fa {
 	font-size: 2.5em;
+}
+
+@media only screen and (max-width: 991px) {
+	.adbpo-home-facets {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.adbpo-home-facets .col-md-3 {
+		flex: 1 0 50%;
+		overflow: hidden;
+	}
+
+	.adbpo-home-facets .caption h5 {
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+	}
 }
