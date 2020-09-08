@@ -9,7 +9,14 @@ services:
     volumes:
       - '.:/usr/src/adbpo_geonode'
       - '/data/backup_restore:/backup_restore'
+      - '/data/data:/data'
+
+  celery:
+    volumes:
+      - '/data/backup_restore:/backup_restore'
+      - '/data/data:/data'
 
   geoserver:
     volumes:
       - '/data/backup_restore:/backup_restore'
+      - '/data/data:/data'
