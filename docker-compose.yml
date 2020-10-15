@@ -47,6 +47,8 @@ services:
       - adbpo-data:/data
     env_file:
       - .env
+    extra_hosts:
+      - "staging.webgis.adbpo.it:89.39.225.97"
 
   django:
     restart: unless-stopped
@@ -71,6 +73,8 @@ services:
     environment:
       UWSGI_CMD: uwsgi --ini /usr/src/adbpo_geonode/uwsgi.ini
       IS_CELERY: 'False'
+    extra_hosts:
+      - "staging.webgis.adbpo.it:89.39.225.97"
 
   celery:
     restart: unless-stopped
@@ -95,6 +99,8 @@ services:
     environment:
       CELERY_CMD: celery beat --app=geonode.celery_app:app -l DEBUG -f /var/log/celery.log
       IS_CELERY: 'True'
+    extra_hosts:
+      - "staging.webgis.adbpo.it:89.39.225.97"
 
   # - Uncomment to enable celery monitor
   # celeryworker:
@@ -155,6 +161,8 @@ services:
       - statics:/mnt/volumes/statics
     env_file:
       - .env
+    extra_hosts:
+      - "staging.webgis.adbpo.it:89.39.225.97"
 
   # Gets and installs letsencrypt certificates
   letsencrypt:
